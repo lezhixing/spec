@@ -22,16 +22,6 @@
 
 
 
-### TODO
-
-- [ ] 1. CSS 命名
-- [ ] 2. 引入相关工具：
-  - EditorConfig
-  - Emmet-plus
-  - FECS 
-- [ ] 3. 统一 font-family
-- [ ] 4. 统一 CSS 基础样式（base.css）
-
 
 
 ## 2. 代码风格
