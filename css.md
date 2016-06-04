@@ -24,7 +24,7 @@
 
 ### TODO
 
-- [ ] 1. CSS 命令
+- [ ] 1. CSS 命名
 - [ ] 2. 引入相关工具：
   - EditorConfig
   - Emmet-plus
