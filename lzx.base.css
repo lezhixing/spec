@@ -1,10 +1,4 @@
 @charset "utf-8";
-
-/**
- * lzx.base.css
- * version: 0.0.1;
- */
-
 body,
 h1,
 h2,
@@ -28,136 +22,92 @@ td {
   margin: 0;
   padding: 0;
 }
-
 body,
 button,
 input,
 select,
 textarea {
-  font: 14px/1.5 'helvetica neue', tahoma, 'hiragino sans gb', stheiti, 'wenquanyi micro hei', \5FAE\8F6F\96C5\9ED1, \5B8B\4F53, sans-serif;
+  /*https://github.com/zenozeng/fonts.css/edit/master/fonts.css*/
+  font-family: -apple-system, "Helvetica Neue", Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "PingFang SC", "Hiragino Sans GB", "Source Han Sans CN", "Source Han Sans SC", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
 }
-
 h1 {
   font-size: 20px;
 }
-
 h2 {
   font-size: 18px;
 }
-
 h3 {
   font-size: 16px;
 }
-
 h4,
 h5,
-h6 {
-  font-size: 100%;
-}
-
-small {
-  font-size: 12px;
-}
-
-ul,
-ol {
-  list-style: none;
-}
-
-a {
-  text-decoration: none;
-  color: #535353;
-}
-
-a:hover {
-  text-decoration: none;
-}
-
-a:active,
-a:hover {
-  outline: 0;
-}
-
-img {
-  border: 0;
-}
-
+h6,
 button,
 input,
 select,
 textarea {
   font-size: 100%;
 }
-
+small {
+  font-size: 12px;
+}
+ul,
+ol {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: #535353;
+}
+a:hover {
+  text-decoration: none;
+  outline: 0;
+}
+a:active {
+  outline: 0;
+}
+img {
+  border: 0;
+}
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-
 .fl {
   float: left;
 }
-
 .fr {
   float: right;
 }
-
 .clearfix {
   *zoom: 1;
 }
-
 .clearfix:after {
   content: "\200B";
   display: block;
   height: 0;
   clear: both;
 }
-
-
-/* CSS for manage content overflow in layout */
-
-.oh {
-  overflow: hidden;
-}
-
-.oh-x {
-  overflow-x: hidden;
-}
-
-.oh-y {
-  overflow-y: hidden;
-}
-
-
-/* CSS for manage text typography */
-
 .tal {
   text-align: left;
 }
-
 .tar {
   text-align: right;
 }
-
 .tac {
   text-align: center;
 }
-
-
-/* CSS for manage visility and display of DOM */
-
 .hide {
   display: none;
 }
-
 .show {
-  display: block;
+  display: none;
 }
-
 .hidden {
   visibility: hidden;
 }
-
 .visible {
   visibility: visible;
 }

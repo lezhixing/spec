@@ -1,5 +1,5 @@
 
-# 乐知行前端 CSS编码规范
+# CSS编码规范
 
 
 ## 1. 前言
@@ -21,6 +21,16 @@
 - 2016-05-24 init
 
 
+
+### TODO
+
+- [ ] 1. CSS 命令
+- [ ] 2. 引入相关工具：
+  - EditorConfig
+  - Emmet-plus
+  - FECS 
+- [ ] 3. 统一 font-family
+- [ ] 4. 统一 CSS 基础样式（base.css）
 
 
 
