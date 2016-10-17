@@ -648,15 +648,14 @@
     }
     ```
 
-  - 如果通过 `if` 和 `else` 使用多行代码块，把 `else` 放在 `if` 代码块关闭括号的同一行。
+  - 如果通过 `if` 和 `else` 使用多行代码块，把 `else` 放在 `if` 代码块关闭括号的下一行。
 
     ```javascript
     // bad
     if (test) {
       thing1();
       thing2();
-    }
-    else {
+    } else {
       thing3();
     }
 
@@ -664,7 +663,8 @@
     if (test) {
       thing1();
       thing2();
-    } else {
+    }
+    else {
       thing3();
     }
     ```
