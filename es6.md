@@ -1,4 +1,4 @@
-# JavaScript 规范（ES5）
+# JavaScript 规范（ES6）
 
 
 ## 前言
