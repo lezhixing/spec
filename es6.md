@@ -577,7 +577,7 @@
       // ...
     }
     ```
-  - [7.11](#functions--signature-spacing) Spacing in a function signature. eslint: [`space-before-function-paren`](http://eslint.org/docs/rules/space-before-function-paren) [`space-before-blocks`](http://eslint.org/docs/rules/space-before-blocks)
+  - 函数后面需要空格. eslint: [`space-before-function-paren`](http://eslint.org/docs/rules/space-before-function-paren) [`space-before-blocks`](http://eslint.org/docs/rules/space-before-blocks)
 
     > Why? Consistency is good, and you shouldn’t have to add or remove a space when adding or removing a name.
 
@@ -866,7 +866,7 @@
     sum === 15;
     ```
 
-  - [11.2](#11.2) <a name='11.2'></a> 现在还不要使用 generators。
+  - <a name='11.2'></a> 现在还不要使用 generators。
 
   > 为什么？因为它们现在还没法很好地编译到 ES5。 (译者注：目前(2016/03) Chrome 和 Node.js 的稳定版本都已支持 generators)
 
