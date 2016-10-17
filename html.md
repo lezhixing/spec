@@ -349,6 +349,12 @@ alert(document.getElementById('foo').tagName);
 <ol data-ui-type="Select"></ol>
 ```
 
+#### [建议] 属性按照重要性、使用频次的顺序书写
+
+```html
+<a id="js-activate" class="btn btn-primary" href="#" title="press to activate">
+```
+
 
 
 
@@ -865,5 +871,3 @@ viewport meta tag 可以设置可视区域的宽度和初始缩放大小，避�
 </tr>
 </table>
 ```
-
-
