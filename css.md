@@ -47,7 +47,7 @@
 UTF-8 编码具有更广泛的适应性。BOM 在使用程序或工具处理文件时可能造成不必要的干扰。
 
 
-### 2.3 CSS文件头部声明 `@charset`
+#### [强制] CSS文件头部声明 `@charset`
 
 为了避免 HTML 和 CSS 文件编码不同时造成中文解析乱码，造成的不必要的麻烦，CSS 文件头部统一加上文件对应的编码，例如文件编码为 UTF-8 时：
 
@@ -64,6 +64,68 @@ UTF-8 编码具有更广泛的适应性。BOM 在使用程序或工具处理文�
 ````
 注：在使用 SASS 时如果不指定 @charset 也可能造成乱码。
 ````
+
+### 2.2 引用
+
+#### [强制] 如无必要,不允许使用`style`属性书写行内样式
+
+### 2.3 命名
+
+#### [强制] 命名必须由英文字母、中划线或数字组成
+
+解释：
+使用中划线"-"更符合css原生语法，可以与js中的"\_"有效区分
+
+#### [建议] 不使用拼音(约定俗成的除外，如: lezhixing),尤其是缩写的拼音、拼音与英文的混合
+
+```css
+/* good */
+.detail {
+  font-size: 18px;
+}
+.topic {
+  font-size: 16px;
+}
+
+/* bad */
+.xiangqing {
+  font-size: 18px;
+}
+.huati {
+  font-size: 16px;
+}
+```
+
+#### [建议] 使用前缀区分使用范围
+
+前缀(举例) | 说明 |　示例
+----|----|----
+g- | g表示global，全局通用样式命名，改动将影响全部页面 | g-nav
+m- | m表示module，模块命名，改动影响该模块 | m-detail
+ui- | 组件命名 | ui-selector
+js- | 用于纯交互的命名，不涉及任何样式规则 | js-switch
+
+解释:
+选择器以 g-, m-, ui- 等有前缀的选择符开头的，意思就是说所有的规则都必须在某个相对的作用域下才生效，以此尽可能减少全局污染。
+
+```css
+/* good */
+.m-graduation .info {
+  line-height: 2;
+}
+.m-graduation .news {
+  color: #eee;
+}
+
+/* bad */
+.info {
+  line-height: 2;
+}
+.news {
+  color: #eee;
+}
+```
+
 
 ### 2.2 注释
 
@@ -147,7 +209,7 @@ Sass， LESS， Stylus 中可以使用单行注释。
 ### 2.3 缩进
 
 
-#### [强制] 使用 `2` 个空格做为一个缩进层级，不允许使用 `2` 个空格 或 `tab` 字符。
+#### [强制] 使用 `2` 个空格做为一个缩进层级，不允许使用 `4` 个空格 或 `tab` 字符。
 
 
 示例：
@@ -194,6 +256,19 @@ font-family: Arial, sans-serif;
 #### [强制] 文件末尾增加一个空行
 
 没有空行在合并多个文件时可能会把上一个文件的最后一行与下一个文件的第一行合并为一行，特别是，JS 中如果没有这个空行而恰巧末尾没有写分号，整个文件可能就会报错了。
+
+#### [建议] 多个css规则间以空行分隔
+
+```css
+html {
+  background: #fff;
+}
+
+body {
+  margin: auto;
+  width: 50%;
+}
+```
 
 ### 2.5 行长度
 
@@ -443,6 +518,44 @@ article {
   border: 1px solid #69c; /* introducing redundancy */
 }
 ```
+
+#### [建议] 不存在继承关系时，使用缩写；存在继承关系时，根据规则的条数选择缩写或分拆的方式
+
+解释:
+避免错误的覆盖。
+
+```css
+/* good */
+.m-detail {
+  font: bold 12px/1.5 arial, sans-serif;
+}
+.m-detail .info {
+  font-weight: normal;
+  font-size: 14px;
+}
+
+/* bad */
+.m-detail {
+  font: bold 12px/1.5 arial, sans-serif;
+}
+.m-detail .info {
+  font: 14px sans;
+}
+
+/* good */
+.m-detail {
+　　　border: 1px solid #000;
+　　　border-bottom-color: #f00;
+}
+/* bad */
+.m-detail {
+　　　border-width: 1px;
+　　　border-style: solid;
+　　　border-color: #000 #000 #f00;
+}
+```
+
+
 
 
 ### 3.3 属性书写顺序
@@ -1105,8 +1218,3 @@ h1 {
 
 
 #### [强制] 禁止使用 `Expression`。
-
-
-
-
-

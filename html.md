@@ -5,7 +5,7 @@
 ## 1 前言
 
 
-HTML 作为描述网页结构的超文本标记语言，在百度一直有着广泛的应用。本文档的目标是使 HTML 代码风格保持一致，容易被理解和被维护。
+HTML 作为描述网页结构的超文本标记语言，在地球上一直有着广泛的应用。本文档的目标是使 HTML 代码风格保持一致，容易被理解和被维护。
 
 
 本文档改自百度 EFE/FEX CSS 规范，并参考 [Code-guide](https://github.com/mdo/code-guide)、[HTML-CSS-guide](https://github.com/doyoe/html-css-guide) 等。
@@ -336,7 +336,7 @@ alert(document.getElementById('foo').tagName);
 ```
 
 
-#### [建议] 自定义属性建议以 `xxx-` 为前缀，推荐使用 `data-`。
+#### [建议] 自定义属性建议以 `xxx-` 为前缀，推荐使用 `data-`。参考[HTML5 data属性](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Using_data_attributes)
 
 解释：
 
@@ -347,6 +347,12 @@ alert(document.getElementById('foo').tagName);
 
 ```html
 <ol data-ui-type="Select"></ol>
+```
+
+#### [建议] 属性按照重要性、使用频次的顺序书写
+
+```html
+<a id="js-activate" class="btn btn-primary" href="#" title="press to activate">
 ```
 
 
@@ -865,5 +871,3 @@ viewport meta tag 可以设置可视区域的宽度和初始缩放大小，避�
 </tr>
 </table>
 ```
-
-

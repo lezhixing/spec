@@ -49,7 +49,7 @@
 
 ## 引用
 
-  -  对所有的引用使用 `const` ；不要使用 `var`。
+  -  对所有的引用使用 `const` ；不要使用 `var`。 eslint: [`prefer-const`](http://eslint.org/docs/rules/prefer-const.html), [`no-const-assign`](http://eslint.org/docs/rules/no-const-assign.html)
 
   > 为什么？这能确保你无法对引用重新赋值，也不会导致出现 bug 或难以理解。
 
@@ -63,7 +63,7 @@
     const b = 2;
     ```
 
-  - 如果你一定需要可变动的引用，使用 `let` 代替 `var`。
+  - 如果你一定需要可变动的引用，使用 `let` 代替 `var`。 eslint:[`no-var`](http://eslint.org/docs/rules/no-var.html) jscs: [`disallowVar`](http://jscs.info/rule/disallowVar)
 
   > 为什么？因为  `let` 是块级作用域，而 `var` 是函数作用域。
 
@@ -97,7 +97,7 @@
 
 ## 对象
 
-  -  使用字面值创建对象。
+  -  使用字面值创建对象。 eslint: [`no-new-object`](http://eslint.org/docs/rules/no-new-object.html)
 
     ```javascript
     // bad
@@ -147,28 +147,29 @@
 
   > 为什么？因为这样可以让你在一个地方定义所有的对象属性。
 
-    ```javascript
-    function getKey(k) {
-      return `a key named ${k}`;
-    }
+  ```javascript
 
-    // bad
-    const obj = {
-      id: 5,
-      name: 'San Francisco',
-    };
-    obj[getKey('enabled')] = true;
+  function getKey(k) {
+    return `a key named ${k}`;
+  }
 
-    // good
-    const obj = {
-      id: 5,
-      name: 'San Francisco',
-      [getKey('enabled')]: true,
-    };
-    ```
+  // bad
+  const obj = {
+    id: 5,
+    name: 'San Francisco',
+  };
+  obj[getKey('enabled')] = true;
+
+  // good
+  const obj = {
+    id: 5,
+    name: 'San Francisco',
+    [getKey('enabled')]: true,
+  };
+  ```
 
   <a name="es6-object-shorthand"></a>
-  -  使用对象方法的简写。
+  -  使用对象方法的简写。eslint: [`object-shorthand`](http://eslint.org/docs/rules/object-shorthand.html) jscs: [`requireEnhancedObjectLiterals`](http://jscs.info/rule/requireEnhancedObjectLiterals)
 
     ```javascript
     // bad
@@ -191,7 +192,7 @@
     ```
 
   <a name="es6-object-concise"></a>
-  -  使用对象属性值的简写。
+  -  使用对象属性值的简写。eslint: [`object-shorthand`](http://eslint.org/docs/rules/object-shorthand.html) jscs: [`requireEnhancedObjectLiterals`](http://jscs.info/rule/requireEnhancedObjectLiterals)
 
   > 为什么？因为这样更短更有描述性。
 
@@ -238,12 +239,31 @@
     };
     ```
 
+  - 只对无法识别的对象属性加引号。eslint: [`quote-props`](http://eslint.org/docs/rules/quote-props.html) jscs: [`disallowQuotedKeysInObjects`](http://jscs.info/rule/disallowQuotedKeysInObjects)
+
+  > 为什么? 首先是有利于阅读，因为大多数编辑器的高亮对于这种情况会当做字符串，并且这样更有利于js引起优化。
+
+  ```javascript
+  // bad
+  const bad = {
+    'foo': 3,
+    'bar': 4,
+    'data-blah': 5,
+  };
+
+  // good
+  const good = {
+    foo: 3,
+    bar: 4,
+    'data-blah': 5,
+  };
+  ```
 
 
 =
 ## 数组
 
-  - 使用字面值创建数组。
+  - 使用字面值创建数组。eslint: [`no-array-constructor`](http://eslint.org/docs/rules/no-array-constructor.html)
 
     ```javascript
     // bad
@@ -253,11 +273,11 @@
     const items = [];
     ```
 
-  -  向数组添加元素时使用 Arrary#push 替代直接赋值。
+  -  向数组添加元素时使用 [Array#push](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/push) 替代直接赋值。
 
     ```javascript
-    const someStack = [];
 
+    const someStack = [];
 
     // bad
     someStack[someStack.length] = 'abracadabra';
@@ -282,7 +302,7 @@
     // good
     const itemsCopy = [...items];
     ```
-  - 使用 Array#from 把一个类数组对象转换成数组。
+  - 使用 [Array.from](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/from) 把一个类数组对象转换成数组。
 
     ```javascript
     const foo = document.querySelectorAll('.foo');
@@ -292,7 +312,7 @@
 
 ## 解构
 
-  -  使用解构存取和使用多属性对象。
+  -  使用解构存取和使用多属性对象。jscs: [`requireObjectDestructuring`](http://jscs.info/rule/requireObjectDestructuring)
 
   > 为什么？因为解构能减少临时引用属性。
 
@@ -317,7 +337,7 @@
     }
     ```
 
-  -  对数组使用解构赋值。
+  -  对数组使用解构赋值。jscs: [`requireArrayDestructuring`](http://jscs.info/rule/requireArrayDestructuring)
 
     ```javascript
     const arr = [1, 2, 3, 4];
@@ -330,7 +350,7 @@
     const [first, second] = arr;
     ```
 
-  - 需要回传多个值时，使用对象解构，而不是数组解构。
+  - 需要回传多个值时，使用对象解构，而不是数组解构。jscs: [`disallowArrayDestructuringReturn`](http://jscs.info/rule/disallowArrayDestructuringReturn)
   > 为什么？增加属性或者改变排序不会改变调用时的位置。
 
     ```javascript
@@ -356,7 +376,7 @@
 
 ## Strings
 
-  -  字符串使用单引号 `''` 。
+  -  字符串使用单引号 `''` eslint: [`quotes`](http://eslint.org/docs/rules/quotes.html) jscs: [`validateQuoteMarks`](http://jscs.info/rule/validateQuoteMarks)。
 
     ```javascript
     // bad
@@ -400,17 +420,31 @@
     function sayHi(name) {
       return ['How are you, ', name, '?'].join();
     }
-
+    // bad
+    function sayHi(name) {
+      return `How are you, ${ name }?`;
+    }
     // good
     function sayHi(name) {
       return `How are you, ${name}?`;
     }
     ```
+  - 不要写不必要转译字符. eslint: [`no-useless-escape`](http://eslint.org/docs/rules/no-useless-escape)
 
+      > Why? Backslashes harm readability, thus they should only be present when necessary.
+
+      ```javascript
+      // bad
+      const foo = '\'this\' \i\s \"quoted\"';
+
+      // good
+      const foo = '\'this\' is "quoted"';
+      const foo = `'this' is "quoted"`;
+      ```
 
 ## 函数
 
-  - 使用函数声明代替函数表达式。
+  - 使用函数声明代替函数表达式。eslint: [`func-style`](http://eslint.org/docs/rules/func-style) jscs: [`requireFunctionDeclarations`](http://jscs.info/rule/requireFunctionDeclarations)
 
   > 为什么？因为函数声明是可命名的，所以他们在调用栈中更容易被识别。此外，函数声明会把整个函数提升（hoisted），而函数表达式只会把函数的引用变量名提升。这条规则使得[箭头函数](#arrow-functions)可以取代函数表达式。
 
@@ -424,16 +458,19 @@
     }
     ```
 
-  -  函数表达式:
+  -  函数表达式。eslint: [`wrap-iife`](http://eslint.org/docs/rules/wrap-iife.html) jscs: [`requireParenthesesAroundIIFE`](http://jscs.info/rule/requireParenthesesAroundIIFE)
 
-    ```javascript
-    // 立即调用的函数表达式 (IIFE)
-    (() => {
-      console.log('Welcome to the Internet. Please follow me.');
-    })();
-    ```
+  > Why? An immediately invoked function expression is a single unit - wrapping both it, and its invocation parens, in parens, cleanly expresses this. Note that in a world with modules everywhere, you almost never need an IIFE.
 
-  - 永远不要在一个非函数代码块（`if`、`while` 等）中声明一个函数，把那个函数赋给一个变量。浏览器允许你这么做，但它们的解析表现不一致。
+  ```javascript
+  // immediately-invoked function expression (IIFE)
+  (function () {
+    console.log('Welcome to the Internet. Please follow me.');
+  }());
+  ```
+
+  - 永远不要在一个非函数代码块（`if`、`while` 等）中声明一个函数，把那个函数赋给一个变量。浏览器允许你这么做，但它们的解析表现不一致。eslint: [`no-loop-func`](http://eslint.org/docs/rules/no-loop-func.html)
+
   -  **注意:** ECMA-262 把 `block` 定义为一组语句。函数声明不是语句。[阅读 ECMA-262 关于这个问题的说明](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf#page=97)。
 
     ```javascript
@@ -468,7 +505,7 @@
     ```
 
 
-  -  不要使用 `arguments`。可以选择 rest 语法 `...` 替代。
+  -  不要使用 `arguments`。可以选择 rest 语法 `...` 替代。eslint: [`prefer-rest-params`](http://eslint.org/docs/rules/prefer-rest-params)
 
   > 为什么？使用 `...` 能明确你要传入的参数。另外 rest 参数是一个真正的数组，而 `arguments` 是一个类数组。
 
@@ -527,12 +564,37 @@
   count(3); // 3
   count();  // 3
   ```
+  - 始终将参数默认值放在最后
 
+    ```javascript
+    // bad
+    function handleThings(opts = {}, name) {
+      // ...
+    }
 
+    // good
+    function handleThings(name, opts = {}) {
+      // ...
+    }
+    ```
+  - 函数后面需要空格. eslint: [`space-before-function-paren`](http://eslint.org/docs/rules/space-before-function-paren) [`space-before-blocks`](http://eslint.org/docs/rules/space-before-blocks)
+
+    > Why? Consistency is good, and you shouldn’t have to add or remove a space when adding or removing a name.
+
+    ```javascript
+    // bad
+    const f = function(){};
+    const g = function (){};
+    const h = function() {};
+
+    // good
+    const x = function () {};
+    const y = function a() {};
+    ```
 
 ## 箭头函数
 
-  -  当你必须使用函数表达式（或传递一个匿名函数）时，使用箭头函数符号。
+  -  当你必须使用函数表达式（或传递一个匿名函数）时，使用箭头函数符号。 eslint: [`prefer-arrow-callback`](http://eslint.org/docs/rules/prefer-arrow-callback.html), [`arrow-spacing`](http://eslint.org/docs/rules/arrow-spacing.html) jscs: [`requireArrowFunctions`](http://jscs.info/rule/requireArrowFunctions)
 
   > 为什么?因为箭头函数创造了新的一个 `this` 执行环境（译注：参考 [Arrow functions - JavaScript | MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) 和 [ES6 arrow functions, syntax and lexical scoping](http://toddmotto.com/es6-arrow-functions-syntaxes-and-lexical-scoping/)），通常情况下都能满足你的需求，而且这样的写法更为简洁。
 
@@ -550,7 +612,7 @@
     });
     ```
 
-  - 如果一个函数适合用一行写出并且只有一个参数，那就把花括号、圆括号和 `return` 都省略掉。如果不是，那就不要省略。
+  - 如果一个函数适合用一行写出并且只有一个参数，那就把花括号、圆括号和 `return` 都省略掉。如果不是，那就不要省略。eslint: [`arrow-parens`](http://eslint.org/docs/rules/arrow-parens.html) jscs:  [`disallowParenthesesAroundArrowParam`](http://jscs.info/rule/disallowParenthesesAroundArrowParam)
 
   > 为什么？语法糖。在链式调用中可读性很高。
 
@@ -565,7 +627,6 @@
       return total + n;
     }, 0);
     ```
-
 
 ## 构造器
 
@@ -675,7 +736,27 @@
       }
     }
     ```
+  - 避免类的属性重复 eslint: [`no-dupe-class-members`](http://eslint.org/docs/rules/no-dupe-class-members)
 
+    > Why? Duplicate class member declarations will silently prefer the last one - having duplicates is almost certainly a bug.
+
+    ```javascript
+    // bad
+    class Foo {
+      bar() { return 1; }
+      bar() { return 2; }
+    }
+
+    // good
+    class Foo {
+      bar() { return 1; }
+    }
+
+    // good
+    class Foo {
+      bar() { return 2; }
+    }
+    ```
 
 ## 模块
 
@@ -723,11 +804,44 @@
     import { es6 } from './AirbnbStyleGuide';
     export default es6;
     ```
+  - 模块只应用一次.eslint: [`no-duplicate-imports`](http://eslint.org/docs/rules/no-duplicate-imports)
+      > Why? Having multiple lines that import from the same path can make code harder to maintain.
 
+      ```javascript
+      // bad
+      import foo from 'foo';
+      // … some other imports … //
+      import { named1, named2 } from 'foo';
+
+      // good
+      import foo, { named1, named2 } from 'foo';
+
+      // good
+      import foo, {
+        named1,
+        named2,
+      } from 'foo';
+      ```
+  - 将import放到所有操作之前。eslint: [`import/imports-first`](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/imports-first.md)
+    > Why? Since `import`s are hoisted, keeping them all at the top prevents surprising behavior.
+
+    ```javascript
+    // bad
+    import foo from 'foo';
+    foo.init();
+
+    import bar from 'bar';
+
+    // good
+    import foo from 'foo';
+    import bar from 'bar';
+
+    foo.init();
+    ```
 
 ## Iterators and Generators
 
-  -  不要使用 iterators。使用高阶函数例如 `map()` 和 `reduce()` 替代 `for-of`。
+  -  不要使用 iterators。使用高阶函数例如 `map()` 和 `reduce()` 替代 `for-of`。eslint: [`no-iterator`](http://eslint.org/docs/rules/no-iterator.html) [`no-restricted-syntax`](http://eslint.org/docs/rules/no-restricted-syntax)
 
   > 为什么？这加强了我们不变的规则。处理纯函数的回调值更易读，这比它带来的副作用更重要。
 
@@ -752,14 +866,14 @@
     sum === 15;
     ```
 
-  - [11.2](#11.2) <a name='11.2'></a> 现在还不要使用 generators。
+  - <a name='11.2'></a> 现在还不要使用 generators。
 
   > 为什么？因为它们现在还没法很好地编译到 ES5。 (译者注：目前(2016/03) Chrome 和 Node.js 的稳定版本都已支持 generators)
 
 
 ## 属性
 
-  - 使用 `.` 来访问对象的属性。
+  - 使用 `.` 来访问对象的属性。eslint: [`dot-notation`](http://eslint.org/docs/rules/dot-notation.html) jscs: [`requireDotNotation`](http://jscs.info/rule/requireDotNotation)
 
     ```javascript
     const luke = {
@@ -792,7 +906,7 @@
 
 ## 变量
 
-  -  一直使用 `const` 来声明变量，如果不这样做就会产生全局变量。我们需要避免全局命名空间的污染。[地球队长](http://www.wikiwand.com/en/Captain_Planet)已经警告过我们了。（译注：全局，global 亦有全球的意思。地球队长的责任是保卫地球环境，所以他警告我们不要造成「全球」污染。）
+  -  一直使用 `const` 来声明变量，如果不这样做就会产生全局变量。我们需要避免全局命名空间的污染。[地球队长](http://www.wikiwand.com/en/Captain_Planet)已经警告过我们了。（译注：全局，global 亦有全球的意思。地球队长的责任是保卫地球环境，所以他警告我们不要造成「全球」污染。）eslint: [`no-undef`](http://eslint.org/docs/rules/no-undef) [`prefer-const`](http://eslint.org/docs/rules/prefer-const)
 
     ```javascript
     // bad
@@ -802,7 +916,7 @@
     const superPower = new SuperPower();
     ```
 
-  - 使用 `const` 声明每一个变量。
+  - 使用 `const` 声明每一个变量。 eslint: [`one-var`](http://eslint.org/docs/rules/one-var.html) jscs: [`disallowMultipleVarDecl`](http://jscs.info/rule/disallowMultipleVarDecl)
 
     > 为什么？增加新变量将变的更加容易，而且你永远不用再担心调换错 `;` 跟 `,`。
 
@@ -989,7 +1103,7 @@
 
 ## 比较运算符 & 等号
 
-  -  优先使用 `===` 和 `!==` 而不是 `==` 和 `!=`.
+  -  优先使用 `===` 和 `!==` 而不是 `==` 和 `!=`. eslint: [`eqeqeq`](http://eslint.org/docs/rules/eqeqeq.html)
   -  条件表达式例如 `if` 语句通过抽象方法 `ToBoolean` 强制计算它们的表达式并且总是遵守下面的规则：
 
     + **对象** 被计算为 **true**
@@ -1059,15 +1173,14 @@
     }
     ```
 
-  - 如果通过 `if` 和 `else` 使用多行代码块，把 `else` 放在 `if` 代码块关闭括号的同一行。
+  - 如果通过 `if` 和 `else` 使用多行代码块，把 `else` 放在 `if` 代码块关闭括号后的新一行，这样有利于大多数IED的代码折叠。 eslint: [`brace-style`](http://eslint.org/docs/rules/brace-style.html) jscs:  [`disallowNewlineBeforeBlockStatements`](http://jscs.info/rule/disallowNewlineBeforeBlockStatements)
 
     ```javascript
     // bad
     if (test) {
       thing1();
       thing2();
-    }
-    else {
+    } else {
       thing3();
     }
 
@@ -1075,7 +1188,8 @@
     if (test) {
       thing1();
       thing2();
-    } else {
+    }
+    else {
       thing3();
     }
     ```
@@ -1173,7 +1287,7 @@
 
 ## 空白
 
-  -  使用 2 个空格作为缩进。
+  -  使用 2 个空格作为缩进。 eslint: [`indent`](http://eslint.org/docs/rules/indent.html) jscs: [`validateIndentation`](http://jscs.info/rule/validateIndentation)
 
     ```javascript
     // bad
@@ -1192,7 +1306,7 @@
     }
     ```
 
-  - 在花括号前放一个空格。
+  - 在花括号前放一个空格。eslint: [`space-before-blocks`](http://eslint.org/docs/rules/space-before-blocks.html) jscs: [`requireSpaceBeforeBlockStatements`](http://jscs.info/rule/requireSpaceBeforeBlockStatements)
 
     ```javascript
     // bad
@@ -1218,7 +1332,7 @@
     });
     ```
 
-  - 在控制语句（`if`、`while` 等）的小括号前放一个空格。在函数调用及声明中，不在函数的参数列表前加空格。
+  - 在控制语句（`if`、`while` 等）的小括号前放一个空格。在函数调用及声明中，不在函数的参数列表前加空格。eslint: [`keyword-spacing`](http://eslint.org/docs/rules/keyword-spacing.html) jscs: [`requireSpaceAfterKeywords`](http://jscs.info/rule/requireSpaceAfterKeywords)
 
     ```javascript
     // bad
@@ -1242,7 +1356,7 @@
     }
     ```
 
-  - 使用空格把运算符隔开。
+  - 使用空格把运算符隔开。eslint: [`space-infix-ops`](http://eslint.org/docs/rules/space-infix-ops.html) jscs: [`requireSpaceBeforeBinaryOperators`](http://jscs.info/rule/requireSpaceBeforeBinaryOperators), [`requireSpaceAfterBinaryOperators`](http://jscs.info/rule/requireSpaceAfterBinaryOperators)
 
     ```javascript
     // bad
@@ -1252,7 +1366,8 @@
     const x = y + 5;
     ```
 
-  -  在文件末尾插入一个空行。
+  -  在文件末尾插入一个空行。eslint: [`eol-last`](https://github.com/eslint/eslint/blob/master/docs/rules/eol-last.md)
+
 
     ```javascript
     // bad
@@ -1276,7 +1391,7 @@
     })(this);↵
     ```
 
-  - 在使用长方法链时进行缩进。使用前面的点 `.` 强调这是方法调用而不是新语句。
+  - 在使用长方法链时进行缩进。使用前面的点 `.` 强调这是方法调用而不是新语句。eslint: [`newline-per-chained-call`](http://eslint.org/docs/rules/newline-per-chained-call) [`no-whitespace-before-property`](http://eslint.org/docs/rules/no-whitespace-before-property)
 
     ```javascript
     // bad
@@ -1315,7 +1430,7 @@
         .call(tron.led);
     ```
 
-  -  在块末和新语句前插入空行。
+  -  在块末和新语句前插入空行。Leave a blank line after blocks and before the next statement. jscs: [`requirePaddingNewLinesAfterBlocks`](http://jscs.info/rule/requirePaddingNewLinesAfterBlocks)
 
     ```javascript
     // bad
@@ -1351,8 +1466,109 @@
 
     return obj;
     ```
+  - 块中不要使用额外的空行. eslint: [`padded-blocks`](http://eslint.org/docs/rules/padded-blocks.html) jscs:  [`disallowPaddingNewlinesInBlocks`](http://jscs.info/rule/disallowPaddingNewlinesInBlocks)
 
+    ```javascript
+    // bad
+    function bar() {
 
+      console.log(foo);
+
+    }
+
+    // also bad
+    if (baz) {
+
+      console.log(qux);
+    } else {
+      console.log(foo);
+
+    }
+
+    // good
+    function bar() {
+      console.log(foo);
+    }
+
+    // good
+    if (baz) {
+      console.log(qux);
+    } else {
+      console.log(foo);
+    }
+    ```
+  - 不要在参数中留多余的空格. eslint: [`space-in-parens`](http://eslint.org/docs/rules/space-in-parens.html) jscs: [`disallowSpacesInsideParentheses`](http://jscs.info/rule/disallowSpacesInsideParentheses)
+
+    ```javascript
+    // bad
+    function bar( foo ) {
+      return foo;
+    }
+
+    // good
+    function bar(foo) {
+      return foo;
+    }
+
+    // bad
+    if ( foo ) {
+      console.log(foo);
+    }
+
+    // good
+    if (foo) {
+      console.log(foo);
+    }
+    ```
+
+  - 不要在数组两侧留空格 eslint: [`array-bracket-spacing`](http://eslint.org/docs/rules/array-bracket-spacing.html) jscs: [`disallowSpacesInsideArrayBrackets`](http://jscs.info/rule/disallowSpacesInsideArrayBrackets)
+
+    ```javascript
+    // bad
+    const foo = [ 1, 2, 3 ];
+    console.log(foo[ 0 ]);
+
+    // good
+    const foo = [1, 2, 3];
+    console.log(foo[0]);
+    ```
+  - 在大括号两侧留空格. eslint: [`object-curly-spacing`](http://eslint.org/docs/rules/object-curly-spacing.html) jscs: [`requireSpacesInsideObjectBrackets`](http://jscs.info/rule/requireSpacesInsideObjectBrackets)
+
+    ```javascript
+    // bad
+    const foo = {clark: 'kent'};
+
+    // good
+    const foo = { clark: 'kent' };
+    ```
+  - 单行代码不应该超过100个字符. eslint: [`max-len`](http://eslint.org/docs/rules/max-len.html) jscs: [`maximumLineLength`](http://jscs.info/rule/maximumLineLength)
+
+    > Why? This ensures readability and maintainability.
+
+    ```javascript
+    // bad
+    const foo = jsonData && jsonData.foo && jsonData.foo.bar && jsonData.foo.bar.baz && jsonData.foo.bar.baz.quux && jsonData.foo.bar.baz.quux.xyzzy;
+
+    // bad
+    $.ajax({ method: 'POST', url: 'https://airbnb.com/', data: { name: 'John' } }).done(() => console.log('Congratulations!')).fail(() => console.log('You have failed this city.'));
+
+    // good
+    const foo = jsonData
+      && jsonData.foo
+      && jsonData.foo.bar
+      && jsonData.foo.bar.baz
+      && jsonData.foo.bar.baz.quux
+      && jsonData.foo.bar.baz.quux.xyzzy;
+
+    // good
+    $.ajax({
+      method: 'POST',
+      url: 'https://airbnb.com/',
+      data: { name: 'John' },
+    })
+      .done(() => console.log('Congratulations!'))
+      .fail(() => console.log('You have failed this city.'));
+    ```
 ## 逗号
 
   - 行首逗号：**不需要**。
@@ -1389,7 +1605,7 @@
     };
     ```
 
-  - 增加结尾的逗号: **需要**。
+  - 增加结尾的逗号（但是三观影响较大，暂时不要这种用法）: **不需要**。[`comma-dangle`](http://eslint.org/docs/rules/comma-dangle.html) jscs: [`requireTrailingComma`](http://jscs.info/rule/requireTrailingComma)
 
   > 为什么? 这会让 git diffs 更干净。另外，像 babel 这样的转译器会移除结尾多余的逗号，也就是说你不必担心老旧浏览器的[尾逗号问题](es5/README.md#commas)。
 
@@ -1434,7 +1650,7 @@
 
 ## 分号
 
-  -  **使用分号**
+  -  **使用分号** eslint: [`semi`](http://eslint.org/docs/rules/semi.html) jscs: [`requireSemicolons`](http://jscs.info/rule/requireSemicolons)
 
     ```javascript
     // bad
@@ -1455,8 +1671,7 @@
       return name;
     })();
     ```
-
-    [Read more](http://stackoverflow.com/a/7365214/1712802).
+    [Read more](https://stackoverflow.com/questions/7365172/semicolon-before-self-invoking-function/7365214%237365214).
 
 ## 类型转换
 
@@ -1468,12 +1683,13 @@
 
     // bad
     const totalScore = this.reviewScore + '';
-
+    // bad
+    const totalScore = this.reviewScore.toString(); // isn't guaranteed to return a string
     // good
     const totalScore = String(this.reviewScore);
     ```
 
-  - 对数字使用 `parseInt` 转换，并带上类型转换的基数。
+  - 对数字使用 `parseInt` 转换，并带上类型转换的基数。eslint: [`radix`](http://eslint.org/docs/rules/radix)
 
     ```javascript
     const inputValue = '4';
@@ -1527,13 +1743,13 @@
     // good
     const hasAge = Boolean(age);
 
-    // good
+    // best
     const hasAge = !!age;
     ```
 
 ## 命名规则
 
-  -  避免单字母命名。命名应具备描述性。
+  -  避免单字母命名。命名应具备描述性。eslint: [`id-length`](http://eslint.org/docs/rules/id-length)
 
     ```javascript
     // bad
@@ -1547,7 +1763,7 @@
     }
     ```
 
-  - 使用驼峰式命名对象、函数和实例。
+  - 使用驼峰式命名对象、函数和实例。eslint: [`camelcase`](http://eslint.org/docs/rules/camelcase.html) jscs: [`requireCamelCaseOrUpperCaseIdentifiers`](http://jscs.info/rule/requireCamelCaseOrUpperCaseIdentifiers)
 
     ```javascript
     // bad
@@ -1560,7 +1776,7 @@
     function thisIsMyFunction() {}
     ```
 
-  -  使用帕斯卡式命名构造函数或类。
+  -  使用帕斯卡式命名构造函数或类。eslint: [`new-cap`](http://eslint.org/docs/rules/new-cap.html) jscs: [`requireCapitalizedConstructors`](http://jscs.info/rule/requireCapitalizedConstructors)
 
     ```javascript
     // bad
@@ -1595,7 +1811,7 @@
     this._firstName = 'Panda';
     ```
 
-  - 别保存 `this` 的引用。使用箭头函数或 Function#bind。
+  - 别保存 `this` 的引用。使用箭头函数或 Function#bind。 [Function#bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind). jscs: [`disallowNodeTypes`](http://jscs.info/rule/disallowNodeTypes)
 
     ```javascript
     // bad
@@ -1857,6 +2073,3 @@
   - [innerHTML vs textContent for script text](http://jsperf.com/innerhtml-vs-textcontent-for-script-text)
   - [Long String Concatenation](http://jsperf.com/ya-string-concat)
   - Loading...
-
-
-
